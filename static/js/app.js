@@ -1,5 +1,7 @@
+//Set the path to our data
 var url = "samples.json";
 
+//Create a afunction that will plot all the necessary graphs
 function plotData(id) {
   d3.json(url).then(data => {
     var samples = data.samples.filter(data => data.id.toString() === id)[0];
@@ -8,10 +10,12 @@ function plotData(id) {
     var otuLables = samples.otu_labels.slice(0, 10);
     var OTU_id = otuIDS.map(value => "OTU " + value);
 
+    //Let's see if we are able to get our data
     console.log(OTU_id);
     console.log(otuLables);
     console.log(sampleValues);
       
+    //Create trace for Bar Chart
     var traceBar = {
       type: 'bar',
       x: sampleValues,
@@ -19,12 +23,13 @@ function plotData(id) {
       orientation: 'h',
       text: otuLables
       };
-        
+    //Create layout for Bar Chart
     var layoutBar = {
-      title: "Top 10 OTU",
+      title: "<b>Top 10 OTU</b>",
       yaxis:{tickmode:"linear"},
     };
 
+    //Create trace for Gauge Chart
     var wfreq = data.metadata.map(data => data.wfreq)
     var traceGauge = [{
       domain: {
@@ -41,20 +46,21 @@ function plotData(id) {
           range: [null, 9] 
         },
           steps: [
-            { range: [0, 2], color: "#FFD700" },
-            { range: [2, 4], color: "cyan" },
-            { range: [4, 6], color: "teal" },
-            { range: [6, 8], color: "lime" },
-            { range: [8, 9], color: "green" },
+            { range: [0, 2], color: "#F4A460" },
+            { range: [2, 4], color: "#AFEEEE" },
+            { range: [4, 6], color: "#5F9EA0" },
+            { range: [6, 8], color: "#66CDAA" },
+            { range: [8, 9], color: "#3CB371" },
           ]}
       }
     ];
-
+    //Create layout for Gauge Chart
     var layoutGauge = {
       width: 700,
       height: 600
     };
 
+    //Create trace for Bubble Chart
     var traceBubble = {
       x: samples.otu_ids,
       y: samples.sample_values,
@@ -65,15 +71,16 @@ function plotData(id) {
         },
       text: samples.otu_labels
     };
-
+    //Create layout for Bubble Chart
     var layoutBubble = {
       xaxis: {
-        title: "OTU ID"
+        title: "<b>OTU ID</b>"
       },
       height: 600,
       width: 1000
     };
 
+    //Let's plot all three charts
     Plotly.newPlot("bar", [traceBar], layoutBar);
     Plotly.newPlot("gauge", traceGauge, layoutGauge);
     Plotly.newPlot("bubble", [traceBubble], layoutBubble);
