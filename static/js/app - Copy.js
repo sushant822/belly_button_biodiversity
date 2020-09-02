@@ -12,7 +12,7 @@ function plotData(id) {
     console.log(otuLables);
     console.log(sampleValues);
       
-    var traceBar = {
+    var trace1 = {
       type: 'bar',
       x: sampleValues,
       y: OTU_id,
@@ -20,13 +20,32 @@ function plotData(id) {
       text: otuLables
       };
         
-    var layoutBar = {
+    var layout1 = {
       title: "Top 10 OTU",
       yaxis:{tickmode:"linear"},
     };
 
+    var trace2 = {
+      x: samples.otu_ids,
+      y: samples.sample_values,
+      mode: "markers",
+      marker: {
+        size: samples.sample_values,
+        color: samples.otu_ids
+        },
+      text: samples.otu_labels
+    };
+
+    var layout2 = {
+      xaxis: {
+        title: "OTU ID"
+      },
+      height: 600,
+      width: 1000
+    };
+
     var wfreq = data.metadata.map(data => data.wfreq)
-    var traceGauge = [{
+    var trace3 = [{
       domain: {
         x: [0, 1], y: [0, 1]
       },
@@ -41,7 +60,7 @@ function plotData(id) {
           range: [null, 9] 
         },
           steps: [
-            { range: [0, 2], color: "#FFD700" },
+            { range: [0, 2], color: "yellow" },
             { range: [2, 4], color: "cyan" },
             { range: [4, 6], color: "teal" },
             { range: [6, 8], color: "lime" },
@@ -50,33 +69,14 @@ function plotData(id) {
       }
     ];
 
-    var layoutGauge = {
+    var layout3 = {
       width: 700,
       height: 600
     };
 
-    var traceBubble = {
-      x: samples.otu_ids,
-      y: samples.sample_values,
-      mode: "markers",
-      marker: {
-        size: samples.sample_values,
-        color: samples.otu_ids
-        },
-      text: samples.otu_labels
-    };
-
-    var layoutBubble = {
-      xaxis: {
-        title: "OTU ID"
-      },
-      height: 600,
-      width: 1000
-    };
-
-    Plotly.newPlot("bar", [traceBar], layoutBar);
-    Plotly.newPlot("gauge", traceGauge, layoutGauge);
-    Plotly.newPlot("bubble", [traceBubble], layoutBubble);
+    Plotly.newPlot("bar", [trace1], layout1);
+    Plotly.newPlot("gauge", trace3, layout3);
+    Plotly.newPlot("bubble", [trace2], layout2);
   });
 };
 
