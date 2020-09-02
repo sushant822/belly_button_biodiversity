@@ -26,14 +26,14 @@ function plotData(id) {
     };
 
     var trace2 = {
-      x: samples.otu_ids,
-      y: samples.sample_values,
+      x: OTU_id,
+      y: sampleValues,
       mode: "markers",
       marker: {
-        size: samples.sample_values,
-        color: samples.otu_ids
-        },
-      text: samples.otu_labels
+        size: sampleValues,
+        color: OTU_id 
+      },
+      text: otuLables
     };
 
     var layout2 = {
@@ -45,37 +45,34 @@ function plotData(id) {
     };
 
     var wfreq = data.metadata.map(data => data.wfreq)
-    var trace3 = [{
-      domain: {
-        x: [0, 1], y: [0, 1]
-      },
+    var trace3 = {
+      domain: {x:[0, 1], y:[0, 1]},
       value: parseFloat(wfreq),
       title: {
         text: "Weekly Washing Frequency"
       },
-      type: "indicator",      
-      mode: "gauge+number",
+      mode: "gauge + number",
       gauge: {
         axis: {
-          range: [null, 9] 
+          range: [null, 9]
         },
-          steps: [
-            { range: [0, 2], color: "yellow" },
-            { range: [2, 4], color: "cyan" },
-            { range: [4, 6], color: "teal" },
-            { range: [6, 8], color: "lime" },
-            { range: [8, 9], color: "green" },
-          ]}
+        steps: [
+          {range: [0, 2], color: "yellow"},
+          {range: [2, 4], color: "cyan"},
+          {range: [4, 6], color: "teal"},
+          {range: [6, 8], color: "lime"},
+          {range: [8, 9], color: "green"}
+        ]
       }
-    ];
+    };
 
     var layout3 = {
       width: 700,
       height: 600
     };
 
-    Plotly.newPlot("bar", [trace1], layout1);
-    Plotly.newPlot("bubble", [trace2], layout2);
+    Plotly.newPlot("bar", trace1, layout1);
+    Plotly.newPlot("bubble", trace2, layout2);
     Plotly.newPlot("gauge", trace3, layout3);
 
   });
