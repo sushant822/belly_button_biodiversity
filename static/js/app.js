@@ -17,10 +17,10 @@ function plotData(id) {
       
     //Create trace for Bar Chart
     var traceBar = {
-      type: 'bar',
+      type: "bar",
       x: sampleValues,
       y: OTU_id,
-      orientation: 'h',
+      orientation: "h",
       text: otuLables
       };
     //Create layout for Bar Chart
@@ -43,14 +43,18 @@ function plotData(id) {
       mode: "gauge+number",
       gauge: {
         axis: {
-          range: [null, 9] 
+          range: [0, 9] 
         },
           steps: [
-            { range: [0, 2], color: "#F4A460" },
-            { range: [2, 4], color: "#AFEEEE" },
-            { range: [4, 6], color: "#5F9EA0" },
-            { range: [6, 8], color: "#66CDAA" },
-            { range: [8, 9], color: "#3CB371" },
+            { range: [0, 1], color: "#D2B48C" },
+            { range: [1, 2], color: "#CD853F" },
+            { range: [2, 3], color: "#BC8F8F" },
+            { range: [3, 4], color: "#B0C4DE" },
+            { range: [4, 5], color: "#D8BFD8" },
+            { range: [5, 6], color: "#B0E0E6" },
+            { range: [6, 7], color: "#98FB98" },
+            { range: [7, 8], color: "#8FBC8F" },
+            { range: [8, 9], color: "#696969" },
           ]}
       }
     ];
