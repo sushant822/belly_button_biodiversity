@@ -4,7 +4,7 @@ var url = "samples.json";
 //Create a afunction that will plot all the necessary graphs
 function plotData(id) {
   d3.json(url).then(data => {
-    var samples = data.samples.filter(data => data.id.toString() === id)[0];
+    var samples = data.samples.filter(data => data.id.toString() == id)[0];
     var sampleValues = samples.sample_values.slice(0, 10).reverse();
     var otuIDS = samples.otu_ids.slice(0, 10).reverse();
     var otuLables = samples.otu_labels.slice(0, 10);
@@ -67,7 +67,8 @@ function plotData(id) {
       mode: "markers",
       marker: {
         size: samples.sample_values,
-        color: samples.otu_ids
+        color: samples.otu_ids,
+        opacity: [0.8]
         },
       text: samples.otu_labels
     };
@@ -77,7 +78,8 @@ function plotData(id) {
         title: "<b>OTU ID</b>"
       },
       height: 600,
-      width: 1000
+      width: 1000,
+      hovermode: "closest"
     };
 
     //Let's plot all three charts
@@ -87,15 +89,16 @@ function plotData(id) {
   });
 };
 
+//Function to populate Demographic Info
 function infoData(id) {
   d3.json(url).then(data => {
     var metadata = data.metadata;
-    var result = metadata.filter(meta => meta.id.toString() === id)[0];
+    var result = metadata.filter(meta => meta.id.toString() == id)[0];
     var demoGraphic = d3.select("#sample-metadata");
     demoGraphic.html("");
 
     Object.entries(result).forEach(data => {
-      demoGraphic.append("h5").text(data[0].toUpperCase() + ": " + data[1] + "\n");
+      demoGraphic.append("h5").text(data[0] + ": " + data[1] + "\n");
     });
   });
 };
@@ -105,6 +108,7 @@ function optionChanged(id) {
   infoData(id);
 };
 
+//Function to initialize
 function init() {
   var dropdown = d3.select("#selDataset");
   d3.json(url).then(data => {
