@@ -4,12 +4,12 @@ var url = "./static/js/samples.json";
 //Create a afunction that will plot all the necessary graphs
 function plotData(id) {
   d3.json(url).then(data => {
-    var samples = data.samples.filter(data => data.id.toString() == id)[0];
+    var samples = data.samples.filter(data => data.id.toString() === id)[0];
     var sampleValues = samples.sample_values.slice(0, 10).reverse();
     var otuIDS = samples.otu_ids.slice(0, 10).reverse();
     var otuLables = samples.otu_labels.slice(0, 10);
     var OTU_id = otuIDS.map(value => "OTU " + value);
-
+    
     //Let's see if we are able to get our data
     console.log(OTU_id);
     console.log(otuLables);
@@ -29,13 +29,17 @@ function plotData(id) {
       yaxis:{tickmode:"linear"},
     };
 
+// *** BONUS Gauge ***
     //Gauge Chart
-    var wfreq = data.metadata.map(data => data.wfreq)
-
-    // *** BONUS Gauge ***
-    var level = parseFloat(wfreq) * 20;
-    
+    /*Let's find the index of ID in samples and compare them to the index of WFREQ which are stored in the array.*/
+    var metaId = data.metadata.map(value => value.id);
+    var metaIdIndex = metaId.indexOf(parseInt(samples.id));
+    var wfreqArr = data.metadata.map(value => value.wfreq);
+    var wfreq = wfreqArr[metaIdIndex];
+    console.log(metaIdIndex);
+   
     //Mathematical functions needed to plot the pie/gauge
+    var level = parseFloat(wfreq) * 20;
     var degrees = 180 - level;
     var radius = 0.5; 
     var radians = (degrees * Math.PI) / 180;
@@ -183,7 +187,7 @@ function plotData(id) {
 function infoData(id) {
   d3.json(url).then(data => {
     var metadata = data.metadata;
-    var result = metadata.filter(meta => meta.id.toString() == id)[0];
+    var result = metadata.filter(meta => meta.id.toString() === id)[0];
     var demoGraphic = d3.select("#sample-metadata");
     demoGraphic.html("");
 
