@@ -38,6 +38,7 @@ function plotData(id) {
     var wfreq = wfreqArr[metaIdIndex];
     console.log(metaIdIndex);
    
+    /*Reference: https://community.plotly.com/t/plotly-js-gauge-pie-chart-data-order/8686 */
     //Mathematical functions needed to plot the pie/gauge
     var level = parseFloat(wfreq) * 20;
     var degrees = 180 - level;
@@ -56,9 +57,13 @@ function plotData(id) {
     var traceGauge = [
         {
           //Let's create the dot for the indicator
+            type: 'category',
             x:[0],
             y:[0],
-            marker: { size: 15, color: "#800000" },
+            marker: { 
+              size: 28, 
+              color: "#800000" 
+            },
             showlegend: false,
             text: level
         },
@@ -85,7 +90,7 @@ function plotData(id) {
             },
             labels:["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
             hoverinfo: "label",
-            hole: 0.45,
+            hole: 0.5,
             type: "pie",
             showlegend: false
         }
