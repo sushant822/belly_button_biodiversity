@@ -26,7 +26,9 @@ function plotData(id) {
     //Create layout for Bar Chart
     var layoutBar = {
       title: "<b>Top 10 OTU</b>",
-      yaxis:{tickmode:"linear"},
+      yaxis: {
+        tickmode:"linear"
+      },
     };
 
 // *** BONUS Gauge ***
