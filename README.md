@@ -1,5 +1,5 @@
-In ordedr to view/play with this project, please use this link:
-https://sushant822.github.io/belly_button_biodiversity/
+# In ordedr to view/play with this project, please use this link:
+# https://sushant822.github.io/belly_button_biodiversity/
 
 
 # Belly Button Biodiversity
